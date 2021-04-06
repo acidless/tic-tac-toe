@@ -1,0 +1,23 @@
+@import "animations";
+@import "variables";
+
+.material-icons {
+  user-select: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: var(--cell-bg);
+  transition: 0.3s transform ease-in-out;
+
+  &:hover {
+    transform: rotateZ(20deg);
+  }
+}
