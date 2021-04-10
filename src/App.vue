@@ -1,26 +1,12 @@
 <template>
   <div class="app-container">
-    <Game v-if="winner === undefined" @gameOver="setWinner" />
-    <GameOver v-else />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import GameOver from "@/components/States/GameOver/GameOver";
-import Game from "@/components/States/Game/Game";
 export default {
   name: "App",
-  components: { Game, GameOver },
-  setup() {
-    let winner = ref(undefined);
-
-    function setWinner(value) {
-      winner.value = value;
-    }
-
-    return { winner, setWinner };
-  },
 };
 </script>
 
@@ -31,6 +17,7 @@ export default {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  outline: none;
 }
 
 body {
@@ -43,6 +30,7 @@ body {
   max-width: 800px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin: 0 auto;
 }
 </style>

@@ -7,24 +7,25 @@ export default class WinChecker {
     return (
       this._checkWinnerHorizontal(fieldData, value) ||
       this._checkWinnerVertical(fieldData, value) ||
-      this._checkWinnerDiagonal(fieldData, value)
+      this._checkWinnerDiagonal(fieldData, value) ||
+      this._checkForDraw(fieldData)
     );
   }
 
   _checkWinnerHorizontal(fieldData, symbol) {
     for (let i = 0; i < fieldData.length; i += this.FIELD_SIZE) {
-      let rowMatch = false;
+      let result = symbol;
 
       for (let j = i; j < i + this.FIELD_SIZE; j++) {
-        rowMatch = fieldData[j] === symbol;
+        result = fieldData[j] === symbol ? symbol : false;
 
-        if (!rowMatch) {
+        if (!result) {
           break;
         }
       }
 
-      if (rowMatch) {
-        return rowMatch;
+      if (result) {
+        return result;
       }
     }
 
@@ -33,18 +34,18 @@ export default class WinChecker {
 
   _checkWinnerVertical(fieldData, symbol) {
     for (let i = 0; i < this.FIELD_SIZE; i++) {
-      let columnMatch = false;
+      let result = symbol;
 
       for (let j = 0; j < this.FIELD_SIZE; j++) {
-        columnMatch = fieldData[i + this.FIELD_SIZE * j] === symbol;
+        result = fieldData[i + this.FIELD_SIZE * j] === symbol ? symbol : false;
 
-        if (!columnMatch) {
+        if (!result) {
           break;
         }
       }
 
-      if (columnMatch) {
-        return columnMatch;
+      if (result) {
+        return result;
       }
     }
 
@@ -53,24 +54,34 @@ export default class WinChecker {
 
   _checkWinnerDiagonal(fieldData, symbol) {
     for (let i = 0; i < this.FIELD_SIZE; i += this.FIELD_SIZE - 1) {
-      let diagonalMatch = false;
+      let result = symbol;
 
       for (
         let j = i;
         j < fieldData.length - i + 1;
         j += this.FIELD_SIZE + (i ? -1 : 1)
       ) {
-        diagonalMatch = fieldData[j] === symbol;
+        result = fieldData[j] === symbol ? symbol : undefined;
 
-        if (!diagonalMatch) {
+        if (!result) {
           break;
         }
       }
-      if (diagonalMatch) {
-        return diagonalMatch;
+      if (result) {
+        return result;
       }
     }
 
     return false;
+  }
+
+  _checkForDraw(fieldData) {
+    const result = "draw";
+
+    for (let i = 0; i < this.FIELD_SIZE ** 2; i++) {
+      if (!fieldData[i]) return;
+    }
+
+    return result;
   }
 }

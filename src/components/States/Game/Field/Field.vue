@@ -21,7 +21,7 @@ export default {
   components: { Cell },
   props: {
     size: Number,
-    currentTurn: Boolean,
+    currentTurn: Number,
     fieldData: Array,
     onCellClick: Function,
   },

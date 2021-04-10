@@ -5,9 +5,27 @@
   user-select: none;
 }
 
-button {
-  background: none;
+button,
+.button {
+  text-decoration: none;
+  background: var(--main-color);
   border: none;
+  color: var(--cell-bg);
+  padding: 0.25em 1em;
+  font-size: 1.5rem;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: inline-block;
+  transition: 0.3s transform ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    background: #f2cf20;
+  }
+}
+
+.default-btn {
+  background: none;
   cursor: pointer;
   outline: none;
   display: flex;
@@ -19,5 +37,6 @@ button {
 
   &:hover {
     transform: rotateZ(20deg);
+    background: none;
   }
 }

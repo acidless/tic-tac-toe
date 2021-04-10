@@ -15,18 +15,23 @@ import Field from "@/components/States/Game/Field/Field";
 import WinChecker from "../../../../utils/WinChecker";
 import { reactive, ref } from "@vue/reactivity";
 import GamePanel from "@/components/States/Game/GamePanel/GamePanel";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 /*====================*/
 
 export default {
   name: "Game",
   components: { GamePanel, Field },
-  setup(props, { emit }) {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
     const winChecker = new WinChecker();
     let fieldData = reactive(
       new Array(winChecker.FIELD_SIZE ** 2).fill(undefined)
     );
-    let currentTurn = ref(false);
+    let currentTurn = ref(1);
 
     function resetFieldData() {
       fieldData.fill(undefined);
@@ -34,10 +39,13 @@ export default {
 
     function onCellClick(index, value) {
       fieldData[index] = value;
-      currentTurn.value = !currentTurn.value;
+      currentTurn.value = currentTurn.value === 2 ? 1 : 2;
 
-      if (winChecker.checkWinner(fieldData, value)) {
-        emit("gameOver", value);
+      const result = winChecker.checkWinner(fieldData, value);
+
+      if (result) {
+        store.commit("setWinner", result);
+        router.push("/");
       }
     }
 

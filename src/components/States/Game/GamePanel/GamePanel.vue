@@ -1,7 +1,7 @@
 <template>
   <div class="game-panel">
-    <p>{{ currentTurn ? "2" : "1" }}'s turn!</p>
-    <button @click="onResetGame">
+    <p>{{ currentTurn }}'s turn!</p>
+    <button class="default-btn" @click="onResetGame">
       <span class="material-icons"> refresh </span>
     </button>
   </div>
@@ -12,7 +12,7 @@ export default {
   name: "GamePanel",
   props: {
     onResetGame: Function,
-    currentTurn: Boolean,
+    currentTurn: Number,
   },
 };
 </script>
@@ -20,7 +20,7 @@ export default {
 <style lang="scss">
 .game-panel {
   width: 100%;
-  background: #f2cf50;
+  background: var(--main-color);
   margin-bottom: 0.5em;
   padding: 1.5em 0;
   border-radius: 1em;

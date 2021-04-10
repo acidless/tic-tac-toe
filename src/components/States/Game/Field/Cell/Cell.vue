@@ -2,7 +2,7 @@
   <div :class="{ setted: field !== undefined }" @click="onClick" class="cell">
     <p class="cell__data" v-if="field !== undefined">
       <span class="material-icons">{{
-        field ? "close" : "radio_button_unchecked"
+        field === 1 ? "close" : "radio_button_unchecked"
       }}</span>
     </p>
   </div>
@@ -12,8 +12,8 @@
 export default {
   name: "Cell",
   props: {
-    currentTurn: Boolean,
-    field: Boolean,
+    currentTurn: Number,
+    field: Number,
     index: Number,
   },
   methods: {
